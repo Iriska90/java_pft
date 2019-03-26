@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class GroupCreationTest {
+public class GroupCreationTests {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -20,7 +20,6 @@ public class GroupCreationTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     driver.get("http://localhost/addressbook/");
     login("admin", "secret");
-
   }
 
   private void login(String username, String password) {

@@ -1,13 +1,12 @@
 package ru.stqa.pft.addressbook;
 
-
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class GroupCreationTest {
+public class ContactCreationTests {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -18,56 +17,50 @@ public class GroupCreationTest {
     driver = new FirefoxDriver();
     baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    driver.get("http://localhost/addressbook/");
-    login("admin", "secret");
 
+    login("admin", "secret");
   }
 
   private void login(String username, String password) {
+    driver.get("http://localhost/addressbook/group.php");
+    driver.findElement(By.name("user")).click();
     driver.findElement(By.name("user")).clear();
     driver.findElement(By.name("user")).sendKeys(username);
+    driver.findElement(By.name("pass")).click();
     driver.findElement(By.name("pass")).clear();
     driver.findElement(By.name("pass")).sendKeys(password);
-    driver.findElement(By.id("LoginForm")).submit();
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+
   }
 
   @Test
-  public void testGroupCreation() throws Exception {
-    gotoGroupPage();
-    initGroupCreation();
-    fillGroupForm(new GroupData("test1", "test2", "test3"));
-    submitGroupCreation();
-    returnToGroupPage();
+  public void testContactCreation() throws Exception {
+
+    gotoContactPage();
+    fillContactForm(new ContactData("Second", "Name", "City", "0987654321", "test-test2@gmail.com"));
   }
 
-  private void returnToGroupPage() {
-    driver.findElement(By.linkText("group page")).click();
+  private void fillContactForm(ContactData contactData) {
+    driver.findElement(By.name("firstname")).click();
+    driver.findElement(By.name("firstname")).clear();
+    driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
+    driver.findElement(By.name("lastname")).click();
+    driver.findElement(By.name("lastname")).clear();
+    driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
+    driver.findElement(By.name("address")).click();
+    driver.findElement(By.name("address")).clear();
+    driver.findElement(By.name("address")).sendKeys(contactData.getAddress());
+    driver.findElement(By.name("home")).click();
+    driver.findElement(By.name("home")).clear();
+    driver.findElement(By.name("home")).sendKeys(contactData.getPhoneNamber());
+    driver.findElement(By.name("email")).click();
+    driver.findElement(By.name("email")).clear();
+    driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
   }
 
-  private void submitGroupCreation() {
-    driver.findElement(By.name("submit")).click();
-  }
-
-  private void fillGroupForm(GroupData groupData) {
-    driver.findElement(By.name("group_name")).click();
-    driver.findElement(By.name("group_name")).click();
-    driver.findElement(By.name("group_name")).clear();
-    driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
-    driver.findElement(By.name("group_header")).click();
-    driver.findElement(By.name("group_header")).clear();
-    driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-    driver.findElement(By.name("group_footer")).click();
-    driver.findElement(By.name("group_footer")).clear();
-    driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
-    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Groups'])[1]/following::form[1]")).click();
-  }
-
-  private void initGroupCreation() {
-    driver.findElement(By.name("new")).click();
-  }
-
-  private void gotoGroupPage() {
-    driver.findElement(By.linkText("groups")).click();
+  private void gotoContactPage() {
+    driver.findElement(By.linkText("add new")).click();
   }
 
   @AfterClass(alwaysRun = true)
