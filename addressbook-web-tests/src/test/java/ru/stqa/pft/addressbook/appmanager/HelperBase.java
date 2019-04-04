@@ -1,5 +1,9 @@
-/*package ru.stqa.pft.addressbook.appmanager;
+package ru.stqa.pft.addressbook.appmanager;
 
+public class HelperBase {
+
+}
+/*
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
