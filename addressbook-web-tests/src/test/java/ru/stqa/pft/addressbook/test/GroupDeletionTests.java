@@ -1,12 +1,18 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.test;
 
+
+import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
 import org.testng.annotations.*;
+
 import static org.testng.Assert.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
-public class ContactCreationTests {
+public class GroupDeletionTests {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -17,50 +23,24 @@ public class ContactCreationTests {
     driver = new FirefoxDriver();
     baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
-    login("admin", "secret");
-  }
-
-  private void login(String username, String password) {
-    driver.get("http://localhost/addressbook/group.php");
-    driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys(username);
-    driver.findElement(By.name("pass")).click();
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys(password);
-    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
-
   }
 
   @Test
-  public void testContactCreation() throws Exception {
-
-    gotoContactPage();
-    fillContactForm(new ContactData("Second", "Name", "City", "0987654321", "test-test2@gmail.com"));
-  }
-
-  private void fillContactForm(ContactData contactData) {
-    driver.findElement(By.name("firstname")).click();
-    driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
-    driver.findElement(By.name("lastname")).click();
-    driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
-    driver.findElement(By.name("address")).click();
-    driver.findElement(By.name("address")).clear();
-    driver.findElement(By.name("address")).sendKeys(contactData.getAddress());
-    driver.findElement(By.name("home")).click();
-    driver.findElement(By.name("home")).clear();
-    driver.findElement(By.name("home")).sendKeys(contactData.getPhoneNamber());
-    driver.findElement(By.name("email")).click();
-    driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
-    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]")).click();
-  }
-
-  private void gotoContactPage() {
-    driver.findElement(By.linkText("add new")).click();
+  public void testGroupDeletion() throws Exception {
+    driver.get("http://localhost/addressbook/");
+    driver.findElement(By.name("user")).click();
+    driver.findElement(By.name("user")).clear();
+    driver.findElement(By.name("user")).sendKeys("admin");
+    driver.findElement(By.name("pass")).click();
+    driver.findElement(By.name("pass")).clear();
+    driver.findElement(By.name("pass")).sendKeys("secret");
+    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]")).click();
+    driver.findElement(By.linkText("groups")).click();
+    driver.findElement(By.name("selected[]")).click();
+    // ERROR: Caught exception [ERROR: Unsupported command [doubleClick | name=selected[] | ]]
+    driver.findElement(By.name("selected[]")).click();
+    driver.findElement(By.name("delete")).click();
+    driver.findElement(By.linkText("group page")).click();
   }
 
   @AfterClass(alwaysRun = true)
@@ -105,3 +85,23 @@ public class ContactCreationTests {
     }
   }
 }
+
+
+
+/*package ru.stqa.pft.addressbook.test;
+
+import org.testng.annotations.Test;
+
+public class GroupDeletionTests extends TestBase {
+
+  @Test
+  public void testGroupDeletion() throws Exception {
+
+    app.getNavigationHelper().gotoGroupPage();
+    app.getGroupHelper().selectGroup();
+    app.getGroupHelper().deleteSelectedGroups();
+    app.getGroupHelper().returnToGroupPage();
+  }
+
+}
+*/

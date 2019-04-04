@@ -1,45 +1,44 @@
-/*package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.test;
 
-
-import java.util.concurrent.TimeUnit;
-import org.testng.annotations.*;
-import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import ru.stqa.pft.addressbook.model.GroupData;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class GroupCreationTest {
-  private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
+import java.util.concurrent.TimeUnit;
 
-  @BeforeClass(alwaysRun = true)
+import static org.testng.Assert.fail;
+
+public class GroupCreationTests {
+  WebDriver driver;
+
+  @BeforeClass
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    driver.get("http://localhost/addressbook/");
+    driver.get("http://localhost/addressbook/group.php");
     login("admin", "secret");
-
   }
-
+//Method
   private void login(String username, String password) {
+    driver.findElement(By.name("user")).click();
     driver.findElement(By.name("user")).clear();
     driver.findElement(By.name("user")).sendKeys(username);
+    driver.findElement(By.name("pass")).click();
     driver.findElement(By.name("pass")).clear();
     driver.findElement(By.name("pass")).sendKeys(password);
-    driver.findElement(By.id("LoginForm")).submit();
+    driver.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
   }
-
+//------
   @Test
-  public void testGroupCreation() throws Exception {
+  public void testGroupCreation() {
     gotoGroupPage();
     initGroupCreation();
-    fillGroupForm(new GroupData("test1", "test2", "test3"));
+    fillGroupForm(new GroupData("test33", "test32", "test31"));
     submitGroupCreation();
     returnToGroupPage();
-  }
+  }  //Methods:
 
   private void returnToGroupPage() {
     driver.findElement(By.linkText("group page")).click();
@@ -69,46 +68,41 @@ public class GroupCreationTest {
     driver.findElement(By.linkText("groups")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+
+//----
+  @AfterClass
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
   }
 
   private boolean isAlertPresent() {
     try {
-      driver.switchTo().alert();
-      return true;
+        driver.switchTo().alert();
+        return true;
     } catch (NoAlertPresentException e) {
-      return false;
+        return false;
     }
   }
 
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
+}
+
+
+
+/*package ru.stqa.pft.addressbook.test;
+
+import org.testng.annotations.*;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+public class GroupCreationTests extends TestBase {
+
+  @Test
+  public void testGroupCreation() throws Exception {
+    app.getNavigationHelper().gotoGroupPage();
+    app.getGroupHelper().initGroupCreation();
+    app.getGroupHelper().fillGroupForm(new GroupData("test1", "test2", "test3"));
+    app.getGroupHelper().submitGroupCreation();
+    app.getGroupHelper().returnToGroupPage();
   }
+
 }
 */
