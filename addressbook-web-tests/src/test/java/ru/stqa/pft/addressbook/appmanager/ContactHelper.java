@@ -21,4 +21,21 @@ public class ContactHelper extends HelperBase{
     type(By.name("email"), contactData.getEmail());
     type(By.name("address2"), contactData.getAddress2());
   }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedGroups() {
+    click(By.xpath("//input[@value='Delete']"));
+    driver.switchTo().alert().accept();
+  }
+
+  public void editContact() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void updateContact() {
+    click(By.name("update"));
+  }
 }
