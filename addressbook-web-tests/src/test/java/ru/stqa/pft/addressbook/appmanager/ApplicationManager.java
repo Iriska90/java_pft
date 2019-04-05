@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -31,14 +30,7 @@ public class ApplicationManager {
    driver.quit();
   }
 
-  public boolean isAlertPresent() {
-      try {
-          driver.switchTo().alert();
-          return true;
-      } catch (NoAlertPresentException e) {
-          return false;
-      }
-    }
+
 //Надо? Если надо, создать для SessionHealptr.
   public GroupHelper getGroupHelper() {
     return groupHelper;
