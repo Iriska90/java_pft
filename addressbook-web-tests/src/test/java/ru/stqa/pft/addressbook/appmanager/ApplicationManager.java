@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.BrowserType;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-  WebDriver driver;
+  private WebDriver driver;
 
   private ContactHelper contactHelper;
   private SessionHelper sessionHelper;
@@ -22,11 +22,11 @@ public class ApplicationManager {
   }
 
   public void init() {
-    if (browser == BrowserType.FIREFOX){
+    if (browser.equals(BrowserType.FIREFOX)){
       driver = new FirefoxDriver();
-    } else if (browser == BrowserType.CHROME){
+    } else if (browser.equals(BrowserType.CHROME)){
       driver = new ChromeDriver();
-    } else if(browser == BrowserType.IE){
+    } else if(browser.equals(BrowserType.IE)){
       driver = new InternetExplorerDriver();
     }
 
@@ -53,6 +53,9 @@ public class ApplicationManager {
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
+  }
+  public SessionHelper getSessionHelper(){
+    return sessionHelper;
   }
 
   public ContactHelper getContactHelper() {
