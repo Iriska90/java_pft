@@ -46,18 +46,16 @@ public class ApplicationManager {
   }
 
 
-//Надо? Если надо, создать для SessionHelper.
+//Надо?
   public GroupHelper getGroupHelper() {
     return groupHelper;
   }
-
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
   }
   public SessionHelper getSessionHelper(){
     return sessionHelper;
   }
-
   public ContactHelper getContactHelper() {
     return contactHelper;
   }
