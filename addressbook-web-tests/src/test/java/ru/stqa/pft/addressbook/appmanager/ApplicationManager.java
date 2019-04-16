@@ -35,7 +35,7 @@ public class ApplicationManager {
     navigationHelper = new NavigationHelper(driver);
     sessionHelper = new SessionHelper(driver);
     contactHelper = new ContactHelper(driver);
-    driver.get("http://localhost/addressbook/group.php");
+    driver.get("http://localhost/addressbook");
     sessionHelper.login("admin", "secret");
   }
 
