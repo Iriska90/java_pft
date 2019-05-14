@@ -79,6 +79,7 @@ public class ContactHelper extends HelperBase {
 
   public boolean isThereATable(){
     //return isElementPresent(By.name("selected[]"));
-    return isElementPresent(By.tagName("tbody"));
+  //  return isElementPresent(By.tagName("tbody"));
+    return isElementPresent(By.name("selected[]"));
   }
 }

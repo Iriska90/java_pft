@@ -16,7 +16,8 @@ public class ContactModificationTests extends TestBase {
       app.getContactHelper().createContact(new ContactData("testname", "testsername", "123456789", "test@test", "City", "test1"), true);
       app.getNavigationHelper().goToHomePage();
     }
-  // before
+    //app.getContactHelper().isThereATable();
+    app.hardWait(2);
     List<ContactData> before = app.getContactHelper().getContactList();
 
     app.getContactHelper().editContact();
@@ -25,6 +26,6 @@ public class ContactModificationTests extends TestBase {
     app.getNavigationHelper().goToHomePage();
    //after
     List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(before.size() - 1, after.size());
+    Assert.assertEquals(before.size(), after.size() +1);
   }
 }

@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import java.lang.Thread;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -38,7 +40,13 @@ public class ApplicationManager {
     driver.get("http://localhost/addressbook");
     sessionHelper.login("admin", "secret");
   }
-
+  public void hardWait(int seconds) {
+    try {
+      Thread.sleep(seconds * 1000);
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+    }
+  }
 
 
   public void stop() {
