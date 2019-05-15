@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private final String id;
   private final String firstname;
   private final String lastname;
   private final String mobile;
@@ -10,13 +11,28 @@ public class ContactData {
   private final String address2;
   private String group;
 
-  public ContactData(String firstname, String lastname, String mobile, String email, String address2, String group) {
+  public ContactData(String id, String firstname, String lastname, String mobile, String email, String address2, String group) {
+   this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
     this.mobile = mobile;
     this.email = email;
     this.address2 = address2;
     this.group = group;
+  }
+  public ContactData(String firstname, String lastname, String mobile, String email, String address2, String group) {
+    this.id = null;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.mobile = mobile;
+    this.email = email;
+    this.address2 = address2;
+    this.group = group;
+  }
+
+
+  public String getId() {
+    return id;
   }
 
   public String getFirstname() {
@@ -43,10 +59,12 @@ public class ContactData {
     return group;
   }
 
+
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstname='" + firstname + '\'' +
+            "id='" + id + '\'' +
+            ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
             ", mobile='" + mobile + '\'' +
             ", email='" + email + '\'' +
@@ -60,7 +78,8 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstname, that.firstname) &&
+    return Objects.equals(id, that.id) &&
+            Objects.equals(firstname, that.firstname) &&
             Objects.equals(lastname, that.lastname) &&
             Objects.equals(mobile, that.mobile) &&
             Objects.equals(email, that.email) &&
@@ -70,6 +89,7 @@ public class ContactData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname, mobile, email, address2, group);
+    return Objects.hash(id, firstname, lastname, mobile, email, address2, group);
   }
+
 }
