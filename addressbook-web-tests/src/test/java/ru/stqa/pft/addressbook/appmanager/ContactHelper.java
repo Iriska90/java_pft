@@ -44,7 +44,7 @@ public class ContactHelper extends HelperBase {
     driver.switchTo().alert().accept();
   }
 
-  public void editContact() {
+  public void editContact(int i) {
     click(By.xpath("//img[@alt='Edit']"));
   }
 

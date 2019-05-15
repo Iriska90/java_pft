@@ -17,15 +17,25 @@ public class ContactModificationTests extends TestBase {
       app.getNavigationHelper().goToHomePage();
     }
     //app.getContactHelper().isThereATable();
-    app.hardWait(2);
+
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getContactHelper().editContact();
-    app.getContactHelper().fillContactForm( new ContactData("testname2", "testsername", "123456789", "test@test", "City", null), false);
+    app.getContactHelper().editContact(before.size() -1);
+    ContactData contact = new  ContactData("testname2", "testsername", "123456789", "test@test", "City", null);
+    //app.getContactHelper().fillContactForm( new ContactData("testname2", "testsername", "123456789", "test@test", "City", null), false);
+    app.getContactHelper().fillContactForm((contact), false);
     app.getContactHelper().updateContact();
     app.getNavigationHelper().goToHomePage();
-   //after
+
+    app.hardWait(2);
     List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(before.size(), after.size() +1);
+    Assert.assertEquals(after.size(), before.size() - 1);
+
+   /* before.remove(before.size() -1 );
+    before.add(contact);
+    Assert.assertEquals(before, after);
+    */
+    before.remove(before.size() -1 );
+    Assert.assertEquals(before, after);
   }
 }
