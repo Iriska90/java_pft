@@ -1,14 +1,10 @@
 package ru.stqa.pft.addressbook.test;
 
-import java.lang.Thread;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ContactDeletionTests  extends TestBase{
   @Test

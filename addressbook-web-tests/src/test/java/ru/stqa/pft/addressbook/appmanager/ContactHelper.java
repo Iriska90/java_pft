@@ -61,26 +61,36 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public int getContactCount() {
-    return driver.findElements(By.name("selected[]")).size();
-  }
+ // public int getContactCount() {
+   // return driver.findElements(By.name("selected[]")).size();
+  //}
 
   public List<ContactData> getContactList() {
     List<ContactData> contacts = new ArrayList<ContactData>();
-    List<WebElement> elements = driver.findElements(By.name("entry"));
+    List<WebElement> elements = driver.findElements(By.xpath("//tr[@name='entry']"));
+    /*
+    List<WebElement> lastnames = driver.findElements(By.xpath("//tr[@name='entry']/td[3]"));
+    List<WebElement> firstnames = driver.findElements(By.xpath("//tr[@name='entry']/td[2]"));
+    List<WebElement> emails = driver.findElements(By.xpath("//tr[@name='entry']/td[5]"));
+    List<WebElement> mobiles = driver.findElements(By.xpath("//tr[@name='entry']/td[6]"));
+    */
+   // int i = 0;
     for (WebElement element : elements) {
-      String name = element.getText();
-      String id = element.findElement(By.tagName("input")).getAttribute("value");
-      ContactData contact = new ContactData(id, name, null, null, null, null, null);
+      String lastname = element.findElement(By.xpath("//tr[@name='entry']/td[2]")).getText();
+      String firstname = element.findElement(By.xpath("//tr[@name='entry']/td[3]")).getText();
+      String email = element.findElement(By.xpath("//tr[@name='entry']/td[5]")).getText();
+      String mobile = element.findElement(By.xpath("//tr[@name='entry']/td[6]")).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      ContactData contact = new ContactData(id, firstname, lastname, mobile, email);
       contacts.add(contact);
     }
     return contacts;
   }
 
 
-  public boolean isThereATable(){
+ // public boolean isThereATable(){
     //return isElementPresent(By.name("selected[]"));
   //  return isElementPresent(By.tagName("tbody"));
-    return isElementPresent(By.name("selected[]"));
-  }
+  //  return isElementPresent(By.name("selected[]"));
+ // }
 }
