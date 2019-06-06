@@ -28,9 +28,20 @@ public class GroupModificationTests extends TestBase {
 
     before.remove(before.size() - 1);
     before.add(group);
-    Comparator<? super GroupData> byID = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+    Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
+
+
+    /*
+    before.remove(before.size() - 1);
+    before.add(group);
+    Comparator<? super GroupData> byID = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
+    //Comparator<? super GroupData> byID = (o1, g2) -> Integer.compare(g1.getId(), g2.getId());
     before.sort(byID);
     after.sort(byID);
     Assert.assertEquals(before, after);
+    */
   }
 }

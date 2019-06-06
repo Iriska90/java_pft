@@ -26,7 +26,6 @@ public class GroupDeletionTests extends TestBase {
 
     before.remove(before.size() - 1);
     Comparator<? super GroupData> byID = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
- //   Comparator<? super GroupData> byID = Comparator.comparingInt(GroupData::getId);;
     before.sort(byID);
     after.sort(byID);
     Assert.assertEquals(before, after);
