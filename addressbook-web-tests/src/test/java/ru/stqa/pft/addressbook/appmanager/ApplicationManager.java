@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
   private WebDriver driver;
 
-  private ContactHelper contactHelper;
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
   private String browser;
+  private ContactHelper contactHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
