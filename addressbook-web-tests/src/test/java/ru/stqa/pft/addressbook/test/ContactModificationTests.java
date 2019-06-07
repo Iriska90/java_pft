@@ -6,33 +6,32 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
   @BeforeMethod (enabled = false)
   public void ensurePreconditionsContacts(){
-    app.getNavigationHelper().goToHomePage();
-    if(! app.getContactHelper().isThereAContact()){
-      app.getNavigationHelper().gotoAddNewContactPage();
-      app.getContactHelper().createContact(new ContactData("testname", "testsername", "123456789", "test@test", "City", "test1"), true);
-      app.getNavigationHelper().goToHomePage();
+    app.goTo().homePage();
+    if(app.contact().list().size() == 0){
+      app.goTo().gotoAddNewContactPage();
+      app.contact().create(new ContactData("testname", "testsername", "123456789", "test@test", "City", "test1"), true);
+      app.goTo().homePage();
     }
   }
 
   @Test (enabled = false)
   public void testContactModification() {
-    //app.getContactHelper().isThereATable();
-    List<ContactData> before = app.getContactHelper().getContactList();
+    //app.contact().isThereATable();
+    List<ContactData> before = app.contact().list();
     int index = before.size() -1;
     ContactData contact = new  ContactData(before.get(index).getId(), "testname2", "testsername", "123456789", "test@test");
-    app.getContactHelper().modifyContact(index, contact);
-    app.getNavigationHelper().goToHomePage();
+    app.contact().modify(index, contact);
+    app.goTo().homePage();
 
     app.hardWait(2);
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(), index);
+    List<ContactData> after = app.contact().list();
+    Assert.assertEquals(after.size(), before.size() - 1);
 
     before.remove(index);
    // before.add(contact);

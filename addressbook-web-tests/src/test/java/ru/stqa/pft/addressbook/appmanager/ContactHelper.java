@@ -52,15 +52,20 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void createContact(ContactData contact, boolean b) {
+  public void create(ContactData contact, boolean b) {
     fillContactForm((contact), true);
     submitContactCreation();
   }
 
-  public void modifyContact(int index, ContactData contact) {
+  public void modify(int index, ContactData contact) {
     editContact(index);
     fillContactForm((contact), false);
     updateContact();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContacts();
   }
 
   public boolean isThereAContact() {
@@ -71,7 +76,7 @@ public class ContactHelper extends HelperBase {
    // return driver.findElements(By.name("selected[]")).size();
   //}
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = driver.findElements(By.xpath("//tr[@name='entry']"));
     /*
