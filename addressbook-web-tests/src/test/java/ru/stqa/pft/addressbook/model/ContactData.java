@@ -3,43 +3,51 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String mobile;
-  private final String email;
-  private final String address2;
+  private int id = Integer.MAX_VALUE;
+  private String firstname;
+  private String lastname;
+  private String mobile;
+  private String email;
+  private String address2;
   private String group;
-
-
-
-  public ContactData(String firstname, String lastname, String mobile, String email, String address2, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
-    this.email = email;
-    this.address2 = address2;
-    this.group = group;
-  }
-
-  public ContactData(int id, String firstname, String lastname, String mobile, String email) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
-    this.email = email;
-    this.address2 = null;
-    this.group = null;
-  }
-
 
   public int getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public ContactData withId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public ContactData withFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withAddress2(String address2) {
+    this.address2 = address2;
+    return this;
+  }
+
+  public ContactData wihtGroup(String group) {
+    this.group = group;
+    return this;
   }
 
   public String getFirstname() {

@@ -10,22 +10,24 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-  @BeforeMethod (enabled = false)
+  @BeforeMethod
+          //(enabled = false)
   public void ensurePreconditionsContacts(){
     app.goTo().homePage();
     if(app.contact().list().size() == 0){
       app.goTo().gotoAddNewContactPage();
-      app.contact().create(new ContactData("testname", "testsername", "123456789", "test@test", "City", "test1"), true);
+      app.contact().create(new ContactData().withFirstname("testname").withLastname("testsername").withMobile("123456789").withEmail("test@test").withAddress2("City").wihtGroup("test1"), true);
       app.goTo().homePage();
     }
   }
 
-  @Test (enabled = false)
+  @Test
+          //(enabled = false)
   public void testContactModification() {
     //app.contact().isThereATable();
     List<ContactData> before = app.contact().list();
     int index = before.size() -1;
-    ContactData contact = new  ContactData(before.get(index).getId(), "testname2", "testsername", "123456789", "test@test");
+    ContactData contact = new  ContactData().withId(before.get(index).getId()).withFirstname("testname2").withLastname("testsername").withMobile("123456789").withEmail("test@test");
     app.contact().modify(index, contact);
     app.goTo().homePage();
 
