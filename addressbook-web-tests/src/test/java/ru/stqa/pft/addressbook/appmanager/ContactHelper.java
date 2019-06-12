@@ -1,15 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -35,8 +35,8 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  public void selectContact(int index) {
-    driver.findElements(By.name("selected[]")).get(index).click();
+  public void selectContactById(int id) {
+    driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void deleteSelectedContacts() {
@@ -57,14 +57,14 @@ public class ContactHelper extends HelperBase {
     submitContactCreation();
   }
 
-  public void modify(int index, ContactData contact) {
-    editContact(index);
+  public void modify(ContactData contact) {
+    editContact(contact.getId());
     fillContactForm((contact), false);
     updateContact();
   }
 
-  public void delete(int index) {
-    selectContact(index);
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
     deleteSelectedContacts();
   }
 
@@ -72,20 +72,13 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
- // public int getContactCount() {
-   // return driver.findElements(By.name("selected[]")).size();
-  //}
+  public int getContactCount() {
+   return driver.findElements(By.name("selected[]")).size();
+  }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> elements = driver.findElements(By.xpath("//tr[@name='entry']"));
-    /*
-    List<WebElement> lastnames = driver.findElements(By.xpath("//tr[@name='entry']/td[3]"));
-    List<WebElement> firstnames = driver.findElements(By.xpath("//tr[@name='entry']/td[2]"));
-    List<WebElement> emails = driver.findElements(By.xpath("//tr[@name='entry']/td[5]"));
-    List<WebElement> mobiles = driver.findElements(By.xpath("//tr[@name='entry']/td[6]"));
-    */
-   // int i = 0;
     for (WebElement element : elements) {
       String lastname = element.findElement(By.xpath("//tr[@name='entry']/td[2]")).getText();
       String firstname = element.findElement(By.xpath("//tr[@name='entry']/td[3]")).getText();
@@ -98,9 +91,19 @@ public class ContactHelper extends HelperBase {
   }
 
 
- // public boolean isThereATable(){
+
+
+  // public boolean isThereATable(){
     //return isElementPresent(By.name("selected[]"));
   //  return isElementPresent(By.tagName("tbody"));
   //  return isElementPresent(By.name("selected[]"));
  // }
+
+   /*
+    List<WebElement> lastnames = driver.findElements(By.xpath("//tr[@name='entry']/td[3]"));
+    List<WebElement> firstnames = driver.findElements(By.xpath("//tr[@name='entry']/td[2]"));
+    List<WebElement> emails = driver.findElements(By.xpath("//tr[@name='entry']/td[5]"));
+    List<WebElement> mobiles = driver.findElements(By.xpath("//tr[@name='entry']/td[6]"));
+    */
+  // int i = 0;
 }
