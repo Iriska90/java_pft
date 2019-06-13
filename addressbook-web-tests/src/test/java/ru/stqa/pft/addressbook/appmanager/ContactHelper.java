@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -56,17 +54,20 @@ public class ContactHelper extends HelperBase {
   public void create(ContactData contact, boolean b) {
     fillContactForm((contact), true);
     submitContactCreation();
+    contactCache = null;
   }
 
   public void modify(ContactData contact) {
     editContact(contact.getId());
     fillContactForm((contact), false);
     updateContact();
+    contactCache = null;
   }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     deleteSelectedContacts();
+    contactCache = null;
   }
 
   public boolean isThereAContact() {
@@ -77,8 +78,14 @@ public class ContactHelper extends HelperBase {
    return driver.findElements(By.name("selected[]")).size();
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if (contactCache !=null){
+      return new Contacts (contactCache);
+    }
+
+    contactCache = new Contacts();
     List<WebElement> elements = driver.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
       String lastname = element.findElement(By.xpath("//tr[@name='entry']/td[2]")).getText();
@@ -86,9 +93,9 @@ public class ContactHelper extends HelperBase {
       String email = element.findElement(By.xpath("//tr[@name='entry']/td[5]")).getText();
       String mobile = element.findElement(By.xpath("//tr[@name='entry']/td[6]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).withMobile(mobile).withEmail(email));
+      contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).withMobile(mobile).withEmail(email));
     }
-    return contacts;
+    return new Contacts (contactCache);
   }
 
 
