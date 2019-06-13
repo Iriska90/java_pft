@@ -32,21 +32,13 @@ public class ContactModificationTests extends TestBase {
             .withId(modifiedContact.getId()).withFirstname("testname2").withLastname("testsername").withMobile("123456789").withEmail("test@test");
     app.contact().modify(contact);
     app.goTo().homePage();
-
-    app.hardWait(4);
-
+    app.hardWait(0);
+  //  assertThat(app.contact().count(), equalTo(before.size())); было бы правильно, эсли бы не было бага на сайте
+    assertThat(app.contact().count(), equalTo(before.size() - 1));
     Contacts after = app.contact().all();
-    assertEquals(after.size(), before.size() - 1);
-
-    assertThat(after, equalTo(before.without(modifiedContact)));
-    //assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact))); было бы правильно, если бы не было бага на сайте
-
-   /* before.remove(before.size() -1 );
-    before.add(contact);
-    Assert.assertEquals(before, after);
-*/
-  //  before.remove(before.size() -1 );
- //   Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    // assertThat(after, equalTo(before.without(modifiedContact)));
+   assertThat(after, equalTo(before.without(modifiedContact)));
+   // assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));; было бы правильно, эсли бы не было бага на сайте
   }
 
 
