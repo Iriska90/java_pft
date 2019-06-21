@@ -17,7 +17,11 @@ public class ContactModificationTests extends TestBase {
     app.goTo().homePage();
     if(app.contact().all().size() == 0){
       app.goTo().gotoAddNewContactPage();
-      app.contact().create(new ContactData().withFirstname("testname").withLastname("testsername").withMobilePhone("123456789").withEmail("test@test").withAddress2("City").wihtGroup("test2"), true);
+      app.contact().create(new ContactData().withFirstname("testname").withLastname("testsername")
+              .withHomePhone("+8(057)681287").withMobilePhone("123 456 789").withWorkPhone("01-00-10")
+              .withFirstEmail("test@test").withSecondEmail("test2@test").withThirdEmail("test3@test")
+              .withAddress("Town").withAddress2("City")
+              .wihtGroup("test2"), true);
       app.goTo().homePage();
     }
   }
@@ -29,7 +33,10 @@ public class ContactModificationTests extends TestBase {
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new  ContactData()
-            .withId(modifiedContact.getId()).withFirstname("testname2").withLastname("testsername").withMobilePhone("123456789").withEmail("test@test");
+            .withId(modifiedContact.getId()).withFirstname("testname2").withLastname("testsername")
+            .withHomePhone("+8(057)--1287").withMobilePhone("123 456 789").withWorkPhone("01000-10")
+            .withFirstEmail("test@test").withSecondEmail("test2@test").withThirdEmail("test3@test")
+            .withAddress("Town").withAddress2("City");
     app.contact().modify(contact);
     app.goTo().homePage();
     app.hardWait(0);

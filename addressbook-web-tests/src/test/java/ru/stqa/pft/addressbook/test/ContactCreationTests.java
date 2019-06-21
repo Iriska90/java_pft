@@ -12,9 +12,14 @@ public class ContactCreationTests extends TestBase{
     app.goTo().homePage();
     Contacts before = app.contact().all();
     app.goTo().gotoAddNewContactPage();
-    ContactData contact = new ContactData().withFirstname("testname").withLastname("testsername").withMobilePhone("123456789").withEmail("test@test").withAddress2("City").wihtGroup("test2");
+    ContactData contact = new ContactData().withFirstname("testname").withLastname("testsername")
+            .withHomePhone("+8(057)681287").withMobilePhone("123 456 789").withWorkPhone("01-00-10")
+            .withFirstEmail("test@test").withSecondEmail("test2@test").withThirdEmail("test3@test")
+            .withAddress("Town").withAddress2("City")
+            .wihtGroup("test2");
     app.contact().create((contact), true);
     app.goTo().homePage();
+
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
     assertThat(after, equalTo(
@@ -22,12 +27,17 @@ public class ContactCreationTests extends TestBase{
 
   }
 
-  @Test
+  @Test //(enabled = false)
   public void testBadContactCreation(){
     app.goTo().homePage();
     Contacts before = app.contact().all();
     app.goTo().gotoAddNewContactPage();
-    ContactData contact = new ContactData().withFirstname("testname' ").withLastname("testsername' ").withMobilePhone("123456789").withEmail("test@test").withAddress2("City").wihtGroup("test2");
+    ContactData contact = new ContactData().withFirstname("testname' ").withLastname("testsername' ")
+            .withHomePhone("057681287").withMobilePhone("123456789").withWorkPhone("010010")
+            .withFirstEmail("test@test").withSecondEmail("test2@test").withThirdEmail("test3@test")
+            .withAddress("Town")
+            .wihtGroup("test2");
+    //ContactData contact = new ContactData().withFirstname("testname' ").withLastname("testsername' ").withMobilePhone("123456789").withEmail("test@test").withAddress2("City").wihtGroup("test2");
     app.contact().create((contact), true);
     app.goTo().homePage();
     assertThat(app.contact().count(), equalTo(before.size()));
