@@ -15,6 +15,28 @@ public class ContactData {
   private String mobilePhone;
   private String homePhone;
   private String workPhone;
+  private String allPhones;
+  private String allEmails;
+
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public ContactData withAllPhones
+          (String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
 
   public int getId() {
     return id;
@@ -160,6 +182,9 @@ public class ContactData {
             ", workPhone='" + workPhone + '\'' +
             '}';
   }
+
+
+
 /*
   @Override
   public String toString() {
